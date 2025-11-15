@@ -1,0 +1,91 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.env/
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+junit-*.xml
+pytestdebug.log
+
+# Jupyter Notebook checkpoints and outputs
+.ipynb_checkpoints/
+*.ipynb
+outputs/
+
+# Pyenv / Poetry / Pipenv
+.python-version
+maturity/
+.pip-wheel-metadata/
+poetry.lock
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Static analysis caches
+.mypy_cache/
+.pyre/
+.pytype/
+ruff_cache/
+pylint.d/
+
+# Miscellaneous
+*.log
+*.pot
+*.mo
+*.pid
+*.seed
+*.cover
+*.sqlite3
+local_settings.py
+instance/
+.webassets-cache
+
+# OS files
+.DS_Store
+Thumbs.db

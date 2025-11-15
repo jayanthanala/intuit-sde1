@@ -1,0 +1,101 @@
+order_id,date,customer_id,product_id,product_name,category,quantity,unit_price,discount,region,salesperson
+1001,2024-01-15,C501,P201,Laptop Pro 15,Electronics,2,999.99,0.10,North,Alice Johnson
+1002,2024-01-15,C502,P105,Executive Desk Chair,Furniture,1,299.50,0.00,South,Bob Smith
+1003,2024-01-16,C503,P201,Laptop Pro 15,Electronics,1,999.99,0.15,East,Alice Johnson
+1004,2024-01-18,C504,P302,Wireless Mouse,Electronics,3,24.99,0.05,West,Carol Davis
+1005,2024-01-20,C505,P401,Standing Desk,Furniture,1,599.00,0.20,North,David Lee
+1006,2024-01-22,C506,P150,Office Bookshelf,Furniture,2,189.99,0.00,South,Bob Smith
+1007,2024-01-25,C507,P201,Laptop Pro 15,Electronics,1,999.99,0.10,East,Alice Johnson
+1008,2024-01-28,C508,P303,Mechanical Keyboard,Electronics,2,89.99,0.00,West,Carol Davis
+1009,2024-02-01,C509,P402,Conference Table,Furniture,1,1299.00,0.15,North,David Lee
+1010,2024-02-03,C510,P304,USB-C Hub,Electronics,4,49.99,0.10,South,Bob Smith
+1011,2024-02-05,C511,P105,Executive Desk Chair,Furniture,3,299.50,0.05,East,Alice Johnson
+1012,2024-02-08,C512,P501,Notebook Set,Stationery,10,12.99,0.00,West,Carol Davis
+1013,2024-02-10,C513,P201,Laptop Pro 15,Electronics,2,999.99,0.20,North,Alice Johnson
+1014,2024-02-12,C514,P502,Ballpoint Pens (12pk),Stationery,5,8.99,0.00,South,Bob Smith
+1015,2024-02-15,C515,P305,Webcam HD,Electronics,1,79.99,0.10,East,Carol Davis
+1016,2024-02-18,C516,P403,Filing Cabinet,Furniture,2,249.99,0.00,West,David Lee
+1017,2024-02-20,C517,P503,Sticky Notes Pack,Stationery,8,5.99,0.00,North,Alice Johnson
+1018,2024-02-22,C518,P306,Monitor 27 inch,Electronics,1,349.99,0.15,South,Bob Smith
+1019,2024-02-25,C519,P404,Ergonomic Footrest,Furniture,1,45.99,0.00,East,Carol Davis
+1020,2024-02-28,C520,P307,Laptop Stand,Electronics,2,39.99,0.05,West,David Lee
+1021,2024-03-01,C521,P201,Laptop Pro 15,Electronics,1,999.99,0.10,North,Alice Johnson
+1022,2024-03-03,C522,P504,Legal Pads (6pk),Stationery,4,14.99,0.00,South,Bob Smith
+1023,2024-03-05,C523,P308,External SSD 1TB,Electronics,1,129.99,0.10,East,Carol Davis
+1024,2024-03-08,C524,P405,Task Chair,Furniture,4,149.99,0.00,West,David Lee
+1025,2024-03-10,C525,P505,Highlighter Set,Stationery,6,9.99,0.00,North,Alice Johnson
+1026,2024-03-12,C526,P309,Docking Station,Electronics,1,199.99,0.15,South,Bob Smith
+1027,2024-03-15,C527,P105,Executive Desk Chair,Furniture,2,299.50,0.10,East,Carol Davis
+1028,2024-03-18,C528,P310,Noise Cancelling Headphones,Electronics,1,249.99,0.20,West,David Lee
+1029,2024-03-20,C529,P506,Desk Organizer,Stationery,3,19.99,0.00,North,Alice Johnson
+1030,2024-03-22,C530,P406,L-Shaped Desk,Furniture,1,799.00,0.10,South,Bob Smith
+1031,2024-03-25,C531,P311,Portable Charger,Electronics,5,29.99,0.05,East,Carol Davis
+1032,2024-03-28,C532,P507,Whiteboard Markers,Stationery,7,11.99,0.00,West,David Lee
+1033,2024-04-01,C533,P201,Laptop Pro 15,Electronics,3,999.99,0.25,North,Alice Johnson
+1034,2024-04-03,C534,P407,Monitor Arm,Furniture,1,89.99,0.00,South,Bob Smith
+1035,2024-04-05,C535,P312,Wireless Trackpad,Electronics,2,69.99,0.10,East,Carol Davis
+1036,2024-04-08,C536,P508,Binder Clips Assorted,Stationery,10,6.99,0.00,West,David Lee
+1037,2024-04-10,C537,P408,Cable Management Tray,Furniture,3,34.99,0.00,North,Alice Johnson
+1038,2024-04-12,C538,P313,USB Flash Drive 64GB,Electronics,8,14.99,0.05,South,Bob Smith
+1039,2024-04-15,C539,P509,Paper Clips Box,Stationery,4,4.99,0.00,East,Carol Davis
+1040,2024-04-18,C540,P409,Desk Lamp LED,Furniture,2,59.99,0.10,West,David Lee
+1041,2024-04-20,C541,P314,Bluetooth Speaker,Electronics,1,89.99,0.15,North,Alice Johnson
+1042,2024-04-22,C542,P510,Stapler Heavy Duty,Stationery,2,24.99,0.00,South,Bob Smith
+1043,2024-04-25,C543,P105,Executive Desk Chair,Furniture,1,299.50,0.05,East,Carol Davis
+1044,2024-04-28,C544,P315,Graphics Tablet,Electronics,1,179.99,0.10,West,David Lee
+1045,2024-05-01,C545,P410,Printer Stand,Furniture,1,49.99,0.00,North,Alice Johnson
+1046,2024-05-03,C546,P316,HDMI Cable 10ft,Electronics,6,12.99,0.00,South,Bob Smith
+1047,2024-05-05,C547,P511,Index Cards 500ct,Stationery,3,8.99,0.00,East,Carol Davis
+1048,2024-05-08,C548,P201,Laptop Pro 15,Electronics,2,999.99,0.15,West,David Lee
+1049,2024-05-10,C549,P411,Corner Desk,Furniture,1,449.00,0.10,North,Alice Johnson
+1050,2024-05-12,C550,P317,Laptop Cooling Pad,Electronics,1,34.99,0.05,South,Bob Smith
+1051,2024-05-15,C551,P512,Correction Tape,Stationery,5,7.99,0.00,East,Carol Davis
+1052,2024-05-18,C552,P318,Wireless Presenter,Electronics,1,44.99,0.10,West,David Lee
+1053,2024-05-20,C553,P412,Storage Ottoman,Furniture,2,79.99,0.00,North,Alice Johnson
+1054,2024-05-22,C554,P319,Ethernet Cable 25ft,Electronics,4,15.99,0.00,South,Bob Smith
+1055,2024-05-25,C555,P513,Rubber Bands Assorted,Stationery,8,3.99,0.00,East,Carol Davis
+1056,2024-05-28,C556,P320,Desk Fan USB,Electronics,3,22.99,0.05,West,David Lee
+1057,2024-06-01,C557,P413,Adjustable Monitor Stand,Furniture,1,69.99,0.10,North,Alice Johnson
+1058,2024-06-03,C558,P321,Phone Mount Desk,Electronics,2,18.99,0.00,South,Bob Smith
+1059,2024-06-05,C559,P514,Envelope Box 100ct,Stationery,2,12.99,0.00,East,Carol Davis
+1060,2024-06-08,C560,P201,Laptop Pro 15,Electronics,1,999.99,0.20,West,David Lee
+1061,2024-06-10,C561,P414,Mesh Back Chair,Furniture,2,199.99,0.05,North,Alice Johnson
+1062,2024-06-12,C562,P322,Power Strip Surge Protector,Electronics,3,29.99,0.10,South,Bob Smith
+1063,2024-06-15,C563,P515,Post-it Flags,Stationery,6,6.99,0.00,East,Carol Davis
+1064,2024-06-18,C564,P323,Document Scanner,Electronics,1,159.99,0.15,West,David Lee
+1065,2024-06-20,C565,P415,Rolling File Cart,Furniture,1,89.99,0.00,North,Alice Johnson
+1066,2024-06-22,C566,P324,LED Desk Light,Electronics,2,39.99,0.10,South,Bob Smith
+1067,2024-06-25,C567,P516,Tape Dispenser,Stationery,4,11.99,0.00,East,Carol Davis
+1068,2024-06-28,C568,P105,Executive Desk Chair,Furniture,3,299.50,0.10,West,David Lee
+1069,2024-07-01,C569,P325,Ergonomic Mouse Pad,Electronics,5,16.99,0.00,North,Alice Johnson
+1070,2024-07-03,C570,P416,Computer Desk 48 inch,Furniture,1,299.00,0.15,South,Bob Smith
+1071,2024-07-05,C571,P517,Folders Manila 100ct,Stationery,2,18.99,0.00,East,Carol Davis
+1072,2024-07-08,C572,P326,Wireless Keyboard Mouse Combo,Electronics,2,59.99,0.10,West,David Lee
+1073,2024-07-10,C573,P417,Bookcase 5 Shelf,Furniture,1,159.99,0.05,North,Alice Johnson
+1074,2024-07-12,C574,P518,Address Labels,Stationery,10,5.99,0.00,South,Bob Smith
+1075,2024-07-15,C575,P201,Laptop Pro 15,Electronics,2,999.99,0.15,East,Carol Davis
+1076,2024-07-18,C576,P327,Drawing Tablet,Electronics,1,89.99,0.10,West,David Lee
+1077,2024-07-20,C577,P418,Footrest Adjustable,Furniture,2,54.99,0.00,North,Alice Johnson
+1078,2024-07-22,C578,P519,Paper Shredder,Stationery,1,79.99,0.10,South,Bob Smith
+1079,2024-07-25,C579,P328,VGA to HDMI Adapter,Electronics,3,19.99,0.00,East,Carol Davis
+1080,2024-07-28,C580,P419,Wall Shelf,Furniture,4,44.99,0.05,West,David Lee
+1081,2024-08-01,C581,P520,Clipboard Plastic,Stationery,6,9.99,0.00,North,Alice Johnson
+1082,2024-08-03,C582,P329,Card Reader USB,Electronics,4,14.99,0.05,South,Bob Smith
+1083,2024-08-05,C583,P420,Credenza Cabinet,Furniture,1,549.00,0.10,East,Carol Davis
+1084,2024-08-08,C584,P521,Hole Punch 3-Ring,Stationery,3,15.99,0.00,West,David Lee
+1085,2024-08-10,C585,P330,Laptop Bag,Electronics,2,49.99,0.10,North,Alice Johnson
+1086,2024-08-12,C586,P105,Executive Desk Chair,Furniture,1,299.50,0.00,South,Bob Smith
+1087,2024-08-15,C587,P522,Letter Opener,Stationery,8,4.99,0.00,East,Carol Davis
+1088,2024-08-18,C588,P331,Monitor Privacy Screen,Electronics,1,39.99,0.15,West,David Lee
+1089,2024-08-20,C589,P421,Storage Cabinet,Furniture,2,199.99,0.05,North,Alice Johnson
+1090,2024-08-22,C590,P523,Pencil Sharpener Electric,Stationery,1,29.99,0.00,South,Bob Smith
+1091,2024-08-25,C591,P332,Laptop Battery Backup,Electronics,1,149.99,0.10,East,Carol Davis
+1092,2024-08-28,C592,P422,Coat Rack Stand,Furniture,1,69.99,0.00,West,David Lee
+1093,2024-09-01,C593,P524,Staple Remover,Stationery,10,3.99,0.00,North,Alice Johnson
+1094,2024-09-03,C594,P201,Laptop Pro 15,Electronics,1,999.99,0.10,South,Bob Smith
+1095,2024-09-05,C595,P333,Laptop Screen Cleaner,Electronics,5,9.99,0.00,East,Carol Davis
+1096,2024-09-08,C596,P423,Visitor Chair,Furniture,4,89.99,0.10,West,David Lee
+1097,2024-09-10,C597,P525,Glue Stick 12pk,Stationery,4,8.99,0.00,North,Alice Johnson
+1098,2024-09-12,C598,P334,SD Card 128GB,Electronics,3,24.99,0.05,South,Bob Smith
+1099,2024-09-15,C599,P424,Executive Hutch,Furniture,1,399.00,0.15,East,Carol Davis
+1100,2024-09-18,C600,P526,Stamp Pad Ink,Stationery,2,6.99,0.00,West,David Lee
