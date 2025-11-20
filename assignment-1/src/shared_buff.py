@@ -3,9 +3,18 @@ Thread-safe bounded buffer for producer-consumer synchronization.
 Uses Condition variables for wait/notify mechanism.
 """
 
+# The SharedBuffer is a manually synchronized bounded buffer built on a deque and a Condition.
+# I chose deque because it offers O(1) append/pop operations and gives me full control over synchronization, 
+# unlike queue.Queue, which hides the locking internals.
+# put() blocks when the buffer is full, and get() blocks when empty. 
+# Both use condition.wait() and condition.notify_all() to coordinate producer and consumer threads.
+
 from collections import deque
 from threading import Condition
 
+# Lock only gives me mutual exclusion
+
+# Condition gives coordination (wait for state change)
 
 class SharedBuffer:
     """

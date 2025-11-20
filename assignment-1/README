@@ -52,6 +52,8 @@ The chosen design has the best balance between correctness, clarity, and meeting
 
 **Selected approach demonstrates explicit control over concurrency** via condition variables, matching the assignment’s intent.
 
+tradeoffs - harder to maintain, more manual logic and error-prone
+
 ---
 
 ## 🧱 Implementation Overview

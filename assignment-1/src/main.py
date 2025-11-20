@@ -16,9 +16,9 @@ logging.basicConfig(
 def run_demo():
     """Run producer-consumer demo: transfer items from source to destination via bounded buffer."""
     # Setup: source with data, empty destination, buffer with capacity of 2
-    source = SourceContainer([1, 2, 3, 4, 5])
-    dest = DestinationContainer()
-    buffer = SharedBuffer(max_size=2)
+    source = SourceContainer([1234,2345,3456,4567,5678,6789])
+    dest = DestinationContainer() #this is empty
+    buffer = SharedBuffer(max_size=2) #let's assume we have a buzzer size of 2, so our dequque can only hold 2 items max.
 
     # Create producer and consumer threads
     producer = Producer(source, buffer)

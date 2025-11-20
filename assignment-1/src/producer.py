@@ -21,7 +21,6 @@ class Producer(threading.Thread):
                 self.buffer.put(None)  # Signal consumer to stop
                 break
 
-            start = time.time()
             self.buffer.put(item)  # Blocks if buffer is full
             logging.debug(f"PUT {item} → Buffer: {self.buffer.snapshot()}")
             time.sleep(0.05)

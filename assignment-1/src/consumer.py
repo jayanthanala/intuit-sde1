@@ -15,7 +15,7 @@ class Consumer(threading.Thread):
     def run(self):
         """Get items from buffer, store to destination, stop on poison pill (None)."""
         while True:
-            start = time.time()
+            # consumer bascially polls for new data in the queue
             item = self.buffer.get()  # Blocks if buffer is empty
 
             if item is None:  # Poison pill received
@@ -25,4 +25,4 @@ class Consumer(threading.Thread):
             self.destination.store(item)
             logging.debug(f"GOT {item} → Buffer: {self.buffer.snapshot()}")
 
-            time.sleep(0.05)
+            time.sleep(0.09)
