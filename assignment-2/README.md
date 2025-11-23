@@ -269,35 +269,35 @@ The test coverage is complete and aligns fully with assignment requirements.
 | Unit tests             | All analysis functions thoroughly tested         |
 | Console printing       | Summaries + formatted reports                    |
 | Clear code organization| Modular, maintainable, and fully separated       |
-| **Error handling** ✨    | **Input validation, type checking, graceful failures** |
-| **Data validation** ✨   | **Range checks, required fields, type conversion** |
-| **Logging** ✨           | **INFO/ERROR/CRITICAL levels with context**        |
+| **Error handling**     | **Input validation, type checking, graceful failures** |
+| **Data validation**    | **Range checks, required fields, type conversion** |
+| **Logging**            | **INFO/ERROR/CRITICAL levels with context**        |
 
 ---
 
 ## 🛡️ Error Handling Features
 
 ### File-Level Validation
-- ✅ File existence check before loading
-- ✅ Permission validation
-- ✅ UTF-8 encoding error handling
-- ✅ CSV format validation (headers, structure)
+- File existence check before loading
+- Permission validation
+- UTF-8 encoding error handling
+- CSV format validation (headers, structure)
 
 ### Row-Level Validation
-- ✅ Required field presence check
-- ✅ Type conversion with error context (shows row number)
-- ✅ Range validation:
+- Required field presence check
+- Type conversion with error context (shows row number)
+- Range validation:
   - Quantity cannot be negative
   - Unit price cannot be negative  
   - Discount must be between 0 and 1
 
 ### Analysis-Level Validation
-- ✅ Empty dataset detection
-- ✅ Parameter validation (n must be positive integer)
-- ✅ Type checking for inputs
+- Empty dataset detection
+- Parameter validation (n must be positive integer)
+- Type checking for inputs
 
 ### Graceful Failure
-- ✅ Clear error messages with context
-- ✅ Proper exit codes (0 for success, 1 for failure)
-- ✅ Logging at appropriate levels
-- ✅ No silent failures
+- Clear error messages with context
+- Proper exit codes (0 for success, 1 for failure)
+- Logging at appropriate levels
+- No silent failures

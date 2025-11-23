@@ -243,10 +243,10 @@ The coverage demonstrates correctness under normal, edge, stress, and multi-thre
 | Demonstrates concurrency |  Logs show buffer state in real time |
 | Clean architecture |  Separate classes, modular design |
 | Unit tests | Complete pytest suite (14 tests total) |
-| **Multi-threading support** | **N producers + M consumers (thread-safe)** |
-| **Error handling** | **Input validation, timeouts, exception handling** |
-| **Scalability** | **Tested up to 10+10 threads with 500 items** |
-| **Performance** | **O(1) operations with minimal lock contention** |
+| Multi-threading support | N producers + M consumers (thread-safe) |
+| Error handling | Input validation, timeouts, exception handling |
+| Scalability | Tested up to 10+10 threads with 500 items |
+| Performance | O(1) operations with minimal lock contention |
 
 ---
 
