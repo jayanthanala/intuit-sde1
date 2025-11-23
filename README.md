@@ -28,7 +28,8 @@ Implements a classic producer–consumer system demonstrating:
 - Use of condition variables  
 - Shared buffer with bounded capacity  
 - Graceful shutdown via poison-pill signaling  
-- Clean, object-oriented structure (`Producer`, `Consumer`, `SharedBuffer`)  
+- Clean, object-oriented structure (`Producer`, `Consumer`, `SharedBuffer`)
+- Multiple Producer-Consumer supported
 
 A runnable demo and comprehensive stress-tested unit suite are included.
 
@@ -73,7 +74,8 @@ cd assignment-2
 - Functional programming utilities (`map`, `filter`, `reduce`, `groupby`)  
 - CSV processing  
 - `pytest` for testing  
-- Shell scripting for local automation  
+- Shell scripting for local automation
+- Error handling for both assignments
 
 ---
 
