@@ -13,16 +13,36 @@ class Consumer(threading.Thread):
         self.destination = destination
 
     def run(self):
-        """Get items from buffer, store to destination, stop on poison pill (None)."""
-        while True:
-            # consumer bascially polls for new data in the queue
-            item = self.buffer.get()  # Blocks if buffer is empty
+        """Get items from buffer, store to destination, stop on poison pill (None).
+        
+        For multiple consumers: when a consumer receives a poison pill, it puts it back
+        in the buffer so other consumers can also receive it and terminate.
+        """
+        try:
+            while True:
+                try:
+                    # consumer basically polls for new data in the queue
+                    item = self.buffer.get()  # Blocks if buffer is empty
 
-            if item is None:  # Poison pill received
-                logging.debug("Consumer received stop signal, exiting.")
-                break
+                    if item is None:  # Poison pill received
+                        logging.debug(f"{self.name}: Received poison pill, passing it on and exiting")
+                        # Put poison pill back for other consumers
+                        self.buffer.put(None)
+                        break
 
-            self.destination.store(item)
-            logging.debug(f"GOT {item} → Buffer: {self.buffer.snapshot()}")
+                    self.destination.store(item)
+                    logging.debug(f"{self.name}: GOT {item} → Buffer: {self.buffer.snapshot()}")
 
-            time.sleep(0.09)
+                    time.sleep(0.09)
+                    
+                except AttributeError as e:
+                    logging.error(f"Consumer: Invalid buffer/destination object: {e}")
+                    raise
+                except Exception as e:
+                    logging.error(f"Consumer: Error processing item {item}: {e}")
+                    raise
+                    
+        except Exception as e:
+            logging.critical(f"Consumer thread failed: {e}", exc_info=True)
+            raise
+            raise

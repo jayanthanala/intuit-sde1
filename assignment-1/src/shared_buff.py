@@ -9,7 +9,7 @@ Uses Condition variables for wait/notify mechanism.
 # put() blocks when the buffer is full, and get() blocks when empty. 
 # Both use condition.wait() and condition.notify_all() to coordinate producer and consumer threads.
 
-from collections import deque
+from collections import deque # O(1) 
 from threading import Condition
 
 # Lock only gives me mutual exclusion
@@ -32,12 +32,20 @@ class SharedBuffer:
         
         Args:
             max_size: Maximum number of items buffer can hold
+            
+        Raises:
+            ValueError: If max_size is not a positive integer
         """
+        if not isinstance(max_size, int):
+            raise ValueError(f"max_size must be an integer, got {type(max_size).__name__}")
+        if max_size <= 0:
+            raise ValueError(f"max_size must be positive, got {max_size}")
+            
         self.max_size = max_size
         self.buffer = deque()  # FIFO queue
         self.condition = Condition()  # For wait/notify synchronization
 
-    def put(self, item):
+    def put(self, item): # producer to add elements to buffer
         """
         Add item to buffer (blocks if full).
         
@@ -47,18 +55,18 @@ class SharedBuffer:
         Args:
             item: Data to add (can be None for poison pill)
         """
-        with self.condition:  # Acquire lock
+        with self.condition:  # Acquire lock :[1,2]
             # Wait while buffer is full
             while len(self.buffer) >= self.max_size:
-                self.condition.wait()  # Release lock and sleep
+                self.condition.wait()  # Release lock and sleep 
             
             # Add item to end of queue
             self.buffer.append(item)
             
-            # Wake up any waiting consumers
+            # Wake up any waiting consumers #.notify()
             self.condition.notify_all()
 
-    def get(self):
+    def get(self): # used by consuemr to get data from the buffer
         """
         Remove and return item from buffer (blocks if empty).
         
@@ -70,7 +78,7 @@ class SharedBuffer:
         """
         with self.condition:  # Acquire lock
             # Wait while buffer is empty
-            while len(self.buffer) == 0:
+            while len(self.buffer) == 0: # []
                 self.condition.wait()  # Release lock and sleep
             
             # Remove item from front of queue (FIFO)

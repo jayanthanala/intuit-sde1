@@ -59,7 +59,16 @@ All analysis logic is placed inside `src/analyzer.py`, implementing:
 
 - Key-value summaries  
 - Product rankings  
-- Salesperson performance tables  
+- Salesperson performance tables
+
+---
+
+### **5. Comprehensive Error Handling** ✨ NEW
+- **Input validation**: File existence, required fields, type checking
+- **Data validation**: Range checks (quantity ≥ 0, 0 ≤ discount ≤ 1, price ≥  0)
+- **Graceful failures**: Clear error messages with context (row numbers, field names)
+- **Logging**: INFO, ERROR, and CRITICAL levels for monitoring
+- **Type safety**: Validates CSV parsing and conversion errors  
 
 ---
 
@@ -94,14 +103,14 @@ Its structure supports meaningful aggregation patterns such as monthly revenue, 
 assignment-2/
 │
 ├── src/
-│ ├── analyzer.py     # Core FP analysis functions
-│ ├── load_csv.py     # Functional CSV -> SalesRecord loader
+│ ├── analyzer.py     # Core FP analysis functions with validation
+│ ├── load_csv.py     # Functional CSV loader with error handling
 │ ├── model.py        # SalesRecord dataclass with computed fields
-│ ├── reporting.py    # Pretty-print helpers
-│ └── main.py         # CLI report runner
+│ ├── reporting.py    # Pretty-print helpers with type validation
+│ └── main.py         # CLI report runner with comprehensive error handling
 │
 ├── tests/            # Pytest suite covering all modules
-└── data/             # input CSV
+└── data/             # Input CSV
 ```
 
 ### **Key Implementation Highlights**
@@ -109,7 +118,9 @@ assignment-2/
 #### + `load_csv.py`
 - Pure FP row-to-object conversion  
 - No mutation or side effects  
-- Returns typed `SalesRecord` instances  
+- Returns typed `SalesRecord` instances
+- **Error handling**: File validation, missing field detection, type conversion errors
+- **Data validation**: Range checks on quantity, price, discount
 
 #### + `analyzer.py`
 Implements analysis using FP constructs:
@@ -117,17 +128,21 @@ Implements analysis using FP constructs:
 - `reduce()` for product revenue aggregation  
 - `groupby()` for region/category/month analysis  
 - `sorted()` for ordering values  
-- Zero global state  
+- Zero global state
+- **Input validation**: Empty records check, parameter validation (n > 0)
 
 #### + `reporting.py`
 Formats raw analysis outputs into readable tables.
+- **Type validation**: Checks for dict, iterable types
+- **Graceful formatting**: Handles formatting errors without crashing
 
 #### + `main.py`
 Coordinates the workflow:
 
-1. Loads dataset  
-2. Runs all analysis functions  
-3. Prints summaries  
+1. Loads dataset with file existence validation
+2. Runs all analysis functions with error handling
+3. Prints summaries
+4. **Error handling**: Try-catch blocks around each analysis, proper exit codes  
 
 ---
 
@@ -234,10 +249,12 @@ The test coverage is complete and aligns fully with assignment requirements.
 ## Assumptions
 
 - Dataset uses valid ISO 8601 dates  
-- Discount values are in the range 0.0–1.0  
-- Rows are well-formed (no missing fields)  
+- Discount values are in the range 0.0–1.0 (validated during loading)
+- Rows are well-formed with all required fields (validated during loading)
 - Month extraction uses `YYYY-MM` format  
-- Salesperson performance is computed per line item  
+- Salesperson performance is computed per line item
+- **Error Handling**: Invalid data raises clear errors with row context
+- **File Encoding**: CSV uses UTF-8 encoding  
 
 ---
 
@@ -252,3 +269,35 @@ The test coverage is complete and aligns fully with assignment requirements.
 | Unit tests             | All analysis functions thoroughly tested         |
 | Console printing       | Summaries + formatted reports                    |
 | Clear code organization| Modular, maintainable, and fully separated       |
+| **Error handling** ✨    | **Input validation, type checking, graceful failures** |
+| **Data validation** ✨   | **Range checks, required fields, type conversion** |
+| **Logging** ✨           | **INFO/ERROR/CRITICAL levels with context**        |
+
+---
+
+## 🛡️ Error Handling Features
+
+### File-Level Validation
+- ✅ File existence check before loading
+- ✅ Permission validation
+- ✅ UTF-8 encoding error handling
+- ✅ CSV format validation (headers, structure)
+
+### Row-Level Validation
+- ✅ Required field presence check
+- ✅ Type conversion with error context (shows row number)
+- ✅ Range validation:
+  - Quantity cannot be negative
+  - Unit price cannot be negative  
+  - Discount must be between 0 and 1
+
+### Analysis-Level Validation
+- ✅ Empty dataset detection
+- ✅ Parameter validation (n must be positive integer)
+- ✅ Type checking for inputs
+
+### Graceful Failure
+- ✅ Clear error messages with context
+- ✅ Proper exit codes (0 for success, 1 for failure)
+- ✅ Logging at appropriate levels
+- ✅ No silent failures

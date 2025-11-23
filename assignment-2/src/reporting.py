@@ -26,10 +26,22 @@ def print_kv_dict(title, d):
       North                   xxxx.xxx
       South                   xxxxx.xxx
       West                     xxxx.xxx
+      
+    Raises:
+        TypeError: If d is not a dict
+        ValueError: If d is empty
     """
+    if not isinstance(d, dict):
+        raise TypeError(f"Expected dict, got {type(d).__name__}")
+    if not d:
+        raise ValueError("Cannot print empty dictionary")
+    
     _header(title)
     for k, v in d.items():
-        print(f"{k:20} {v:10.2f}")
+        try:
+            print(f"{k:20} {v:10.2f}")
+        except (ValueError, TypeError) as e:
+            print(f"{k:20} {str(v):>10} (formatting error)")
 
 
 def print_top_products(title, items):
@@ -45,10 +57,25 @@ def print_top_products(title, items):
       xxxxxxxxxxxxxxxxx                       xxxx.xxx
       xxxxxxxxxxxxxxxxx                 xxxx.xxx
       xxxxxxxxxxxxxxxxx                      xxxx.xxx
+      
+    Raises:
+        TypeError: If items is not iterable
+        ValueError: If items is empty or malformed
     """
+    if not hasattr(items, '__iter__'):
+        raise TypeError(f"Expected iterable, got {type(items).__name__}")
+    
+    items_list = list(items)
+    if not items_list:
+        raise ValueError("Cannot print empty product list")
+    
     _header(title)
-    for name, rev in items:
-        print(f"{name:30} {rev:12.2f}")
+    for item in items_list:
+        try:
+            name, rev = item
+            print(f"{name:30} {rev:12.2f}")
+        except (ValueError, TypeError) as e:
+            print(f"Error formatting item {item}: {e}")
 
 
 def print_salesperson_summary(perf_map, top: int = 5):
@@ -69,15 +96,29 @@ def print_salesperson_summary(perf_map, top: int = 5):
       Bob Smith      rev=10234.56  orders= 23  customers= 21  regions= 4  eff_disc= 7.2%
       Carol Davis    rev= 9876.54  orders= 21  customers= 19  regions= 3  eff_disc= 5.4%
       David Lee      rev= 8765.43  orders= 20  customers= 18  regions= 4  eff_disc= 8.1%
+      
+    Raises:
+        TypeError: If perf_map is not a dict or top is not an int
+        ValueError: If perf_map is empty or top is invalid
     """
+    if not isinstance(perf_map, dict):
+        raise TypeError(f"Expected dict, got {type(perf_map).__name__}")
+    if not perf_map:
+        raise ValueError("Cannot print empty performance map")
+    if not isinstance(top, int) or top <= 0:
+        raise ValueError(f"top must be a positive integer, got {top}")
+    
     _header(f"Top {top} Salespeople by Performance")
 
     # Sort by revenue descending, take top N
-    ranked = sorted(
-        perf_map.items(),
-        key=lambda item: item[1]["total_revenue"],
-        reverse=True,
-    )[:top]
+    try:
+        ranked = sorted(
+            perf_map.items(),
+            key=lambda item: item[1]["total_revenue"],
+            reverse=True,
+        )[:top]
+    except (KeyError, TypeError) as e:
+        raise ValueError(f"Invalid performance data structure: {e}")
 
     for sp, stats in ranked:
         print(

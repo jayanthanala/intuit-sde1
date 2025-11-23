@@ -2,7 +2,7 @@
 
 from src.model import SalesRecord
 
-
+#filter->map->sort
 def test_pipeline():
     """Verify functional pipeline: filter by amount > 70, extract names, sort alphabetically."""
     records = [

@@ -24,14 +24,26 @@ def extract_month(date_str: str) -> str:
 # =========================================================
 def total_revenue(records):
     """Sum all record amounts using reduce: accumulator + current record amount.
+    1. Input: List of SalesRecord
+    2. For each record → read amount property (quantity × price × (1-discount))
+    3. Accumulate sum
     
+    -- Sorting takes (O(n logn)), map takes O(N) but we need FP.
+
     Example with 3 records:
       Record 1: amount=1799.98 → acc=0.0 + 1799.98 = 1799.98
       Record 2: amount=299.50 → acc=1799.98 + 299.50 = 2099.48
       Record 3: amount=849.99 → acc=2099.48 + 849.99 = 2949.47
     Result: 2949.47
+    
+    Raises:
+        ValueError: If records is empty or None
     """
+    if not records:
+        raise ValueError("Cannot calculate total revenue: records list is empty")
+    
     return reduce(lambda acc, r: acc + r.amount, records, 0.0)
+    # i can also do this using; sum(r.amount for r in records)
 
 
 # =========================================================
@@ -39,6 +51,10 @@ def total_revenue(records):
 # =========================================================
 def revenue_by_region(records):
     """Group records by region, sum amounts per group.
+    
+    1. Sort records by region
+    2. Apply groupby
+    3. For each region → sum item.amount
     
     After sort: [East records..., North records..., South records..., West records...]
     Groupby yields: ('East', <itr>) → ('North', <itr>) → ..
@@ -73,7 +89,13 @@ def revenue_by_category(records):
 def top_n_products(records, n=5):
     """Aggregate revenue per product using reduce, sort desc, take top N.
     
-    Reduce builds dict step-by-step:
+    - Use reduce to accumulate product → revenue mapping
+    - Sort by revenue descending
+    - Slice top N
+    
+    - More efficient approach would mutate a dict (but that's not pure FP)
+    
+    Reduce builds dict step-by-step: there are also immutable
       Record 1 (Laptop, 1799.98): {} → {'Laptop': 1799.98}
       Record 2 (Laptop, 849.99): {'Laptop': 1799.98} → {'Laptop': 2649.97}
       Record 3 (Mouse, 71.22): {'Laptop': 2649.97} → {'Laptop': 2649.97, 'Mouse': 71.22}
@@ -81,7 +103,14 @@ def top_n_products(records, n=5):
     After reduce: {'Laptop Pro 15': 9876.54, 'Conference Table': 1103.65, ...}
     After sort: [('Laptop Pro 15', 9876.54), ('Conference Table', 1103.65), ...]
     After [:n]: top N products
+    
+    Raises:
+        ValueError: If records is empty or n is invalid
     """
+    if not records:
+        raise ValueError("Cannot find top products: records list is empty")
+    if not isinstance(n, int) or n <= 0:
+        raise ValueError(f"n must be a positive integer, got {n}")
     # Use reduce to build dict: {product_name: total_revenue}
     totals = reduce(
         lambda acc, r: {**acc, r.product_name: acc.get(r.product_name, 0.0) + r.amount},  # Merge dicts, accumulate revenue
@@ -97,6 +126,11 @@ def top_n_products(records, n=5):
 # =========================================================
 def revenue_by_month(records):
     """Group records by month (YYYY-MM), sum amounts per group.
+    
+    2. Extract month from date
+    3. Sort by month
+    4. Groupby month
+    5.Sum
     
     Extract month: '2024-01-15' → '2024-01', '2024-02-10' → '2024-02'
     After sort: all Jan records, then Feb, then Mar...
@@ -121,6 +155,18 @@ def revenue_by_month(records):
 # =========================================================
 def salesperson_performance(records):
     """Calculate comprehensive metrics per salesperson.
+    
+    Computes:
+    - total_revenue
+    - number of orders
+    - number of customers served
+    - number of regions covered
+    - effective discount percentage × revenue
+
+    1. Sort by salesperson
+    2. Group records
+    3. Convert group to list
+    4. Compute metrics
     
     Example for 'Alice Johnson' with 3 records:
       lst = [rec1, rec2, rec3]

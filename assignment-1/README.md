@@ -23,9 +23,11 @@ communication between threads, and clean object-oriented design.
 I implemented the Producer–Consumer problem using:
 
 - A **bounded shared buffer** backed by `deque` for O(1) enqueue/dequeue  
-- Python’s `Condition` object for **synchronized put/get** operations  
+- Python's `Condition` object for **synchronized put/get** operations  
 - Separate `Producer` and `Consumer` thread classes  
 - A **poison-pill mechanism** (`None`) for graceful shutdown  
+- **Thread-safe containers** supporting multiple producers and consumers
+- **Comprehensive error handling** with validation and timeout protection
 - Clear, thread-safe logging showing real-time buffer state
 
 This approach ensures correctness, readability, and deterministic behavior under concurrency.
@@ -64,15 +66,20 @@ tradeoffs - harder to maintain, more manual logic and error-prone
 assignment-1/
 │
 ├── src/
-│ ├── container.py   #Source + destination containers
-│ ├── producer.py    #Producer thread
-│ ├── consumer.py    #Consumer thread
-│ ├── shared_buffer.py   # Bounded buffer with wait/notify
-│ └── main.py     #Demo runner
+│ ├── container.py          # Thread-safe source + destination
+│ ├── producer.py           # Producer thread with error handling
+│ ├── consumer.py           # Consumer thread with poison pill passing
+│ ├── shared_buffer.py      # Bounded buffer with wait/notify
+│ └── main.py               # Demo runner (single + multi-threaded demos)
 │
-├── tests/   # Pytest suite covering all scenarios
+├── tests/
+│ ├── test_basic_flow.py               # Basic correctness tests
+│ ├── test_buffer_conditions.py        # Edge case tests
+│ ├── test_ordering_poison.py          # FIFO and termination tests
+│ ├── test_stress.py                   # Stress tests
+│ └── test_multi_producer_consumer.py  # Multi-threading tests (NEW)
 │
-└── run.sh   #Script to run demo or tests
+└── run.sh                  # Script to run demo or tests
 ```
 
 ### **Key Components**
@@ -85,17 +92,28 @@ Implements a bounded buffer with:
 - `get()` blocking when empty  
 - `Condition` for producer/consumer coordination  
 - `snapshot()` for debug-friendly buffer visualization
+- **Input validation** (max_size must be positive integer)
+- **Thread-safe** for multiple producers and consumers
+
+#### + `SourceContainer` & `DestinationContainer`
+- **Thread-safe** with `Lock` protection for concurrent access
+- `SourceContainer`: Multiple producers can safely share the same source
+- `DestinationContainer`: Multiple consumers can safely write to same destination
+- O(1) operations using `deque` for efficient concurrent access
 
 #### + `Producer`
-- Reads from `SourceContainer`
+- Reads from `SourceContainer` (thread-safe)
 - Calls `buffer.put(item)`
 - Logs every step with buffer state
 - Sends `None` as a poison pill on completion
+- **Error handling**: Validates objects, catches exceptions, timeout protection
 
 #### + `Consumer`
 - Reads using `buffer.get()`
-- Stores values in `DestinationContainer`
+- Stores values in `DestinationContainer` (thread-safe)
+- **Poison pill passing**: Puts pill back for other consumers before exiting
 - Stops cleanly on receiving `None`
+- **Error handling**: Validates objects, catches exceptions
 
 #### + `main.py`
 Runs a full example with 5 items and prints final results.
@@ -115,13 +133,18 @@ Why I used `deque` instead of `queue.Queue` or a `list`:
 
 ---
 ## ▶️ How to Run
-```
+```bash
 cd assignment-1 
-./run.sh demo      # Run concurrency demo
-./run.sh test      # Run unit tests
-./run.sh clean      # cleans your env
+./run.sh demo      # Run concurrency demo (single + multi-threaded)
+./run.sh test      # Run all unit tests
+./run.sh clean     # Clean environment
 ```
 The script automatically creates a virtual environment and installs dependencies.
+
+### Demo Modes
+
+1. **Single Producer-Consumer**: Original demo with 1 producer + 1 consumer
+2. **Multi Producer-Consumer**: NEW demo with 2 producers + 2 consumers showing concurrent operation
 
 ---
 
@@ -167,35 +190,45 @@ tests/test_stress.py ...
 ---
 ## Test Suite Explanation
 
-Your test suite covers **every critical correctness dimension**:
+The test suite covers **every critical correctness dimension**:
 
-### ✔ Basic Flow Tests
+### ✔ Basic Flow Tests (`test_basic_flow.py`)
 - All items transferred in order  
 - Handles empty sources correctly  
 
-### ✔ Buffer Condition Tests
+### ✔ Buffer Condition Tests (`test_buffer_conditions.py`)
 - Behavior when buffer size = 1  
 - Behavior when buffer > dataset size  
 
-### ✔ Ordering + Poison Pill
+### ✔ Ordering + Poison Pill (`test_ordering_poison.py`)
 - Ensures FIFO correctness  
 - Ensures `None` is **not** stored in destination  
 
-### ✔ Stress Tests
+### ✔ Stress Tests (`test_stress.py`)
 - 300-item workload  
 - Random producer/consumer jitter to mimic real concurrency  
-- Verifies system is stable under timing variability  
+- Verifies system is stable under timing variability
 
-The coverage demonstrates correctness under normal, edge, and stress conditions.
+### ✔ Multi-Producer Multi-Consumer Tests (`test_multi_producer_consumer.py`) **NEW**
+- **2 producers + 2 consumers**: Balanced load distribution
+- **3 producers + 1 consumer**: Producer competition for items
+- **1 producer + 3 consumers**: Consumer load balancing
+- **Asymmetric ratios**: 4:2 and 2:4 configurations
+- **Large scale**: 10 producers + 10 consumers with 500 items
+- **Validates**: No data loss, no duplicates, all threads terminate cleanly
+
+The coverage demonstrates correctness under normal, edge, stress, and multi-threaded conditions.
 
 ---
 
 ## Assumptions
 
-1. Shutdown uses a single poison pill because only one consumer exists.  We can use `.notify_all()` when multiple consumer exists.
-2. `SourceContainer` supplies items in FIFO order.  
-3. Buffer capacity is fixed at initialization.  
-4. Logging is for demonstration and not required in production.  
+1. **Multi-Consumer Support**: Each producer sends one poison pill when done. Consumers pass poison pills along to other consumers before exiting, ensuring all consumers terminate.
+2. **Thread Safety**: Containers use locks for thread-safe access by multiple producers/consumers.
+3. `SourceContainer` supplies items in FIFO order using `deque`.  
+4. Buffer capacity is fixed at initialization.  
+5. Logging is for demonstration and not required in production.
+6. **Error Handling**: Includes input validation, timeout protection (30s), and graceful failure modes.  
 
 ---
 
@@ -209,6 +242,12 @@ The coverage demonstrates correctness under normal, edge, and stress conditions.
 | Wait/Notify mechanism |Explicit `condition.wait()` + `condition.notify_all()` |
 | Demonstrates concurrency |  Logs show buffer state in real time |
 | Clean architecture |  Separate classes, modular design |
-| Unit tests | Complete pytest suite |
+| Unit tests | Complete pytest suite (14 tests total) |
+| **Multi-threading support** | **N producers + M consumers (thread-safe)** |
+| **Error handling** | **Input validation, timeouts, exception handling** |
+| **Scalability** | **Tested up to 10+10 threads with 500 items** |
+| **Performance** | **O(1) operations with minimal lock contention** |
+
+---
 
 
